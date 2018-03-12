@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var app = express();
 //cargar rutas
 var usuarioRoutes = require('./routes/usuarioRoute');
+var productoRoutes = require('./routes/productoRoute');
 
 //cargar middlewares
 //metodo que se ejecuta antes de lleggar al controlador.
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 	//permite usar localhost:3800/api/home
 	//permite usar localhost:3800/api/pruebas
 app.use('/api',usuarioRoutes);
+app.use('/api',productoRoutes);
 //exportar
 module.exports=app;
  //cambio hacia git 
