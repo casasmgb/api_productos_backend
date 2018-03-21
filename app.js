@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var app = express();
 //cargar rutas
 var usuarioRoutes = require('./src/routes/usuarioRoute');
-var productoRoutes = require('./src/routes/productoRoute');
 
 //cargar middlewares
 //metodo que se ejecuta antes de lleggar al controlador.
