@@ -24,6 +24,11 @@ sequelize
     //crear servidor
     app.listen(config.puerto, ()=>{
         console.log("Servidor en ejecucion en http://localhost:"+config.puerto);
+        console.log(`
+        ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+        █░░░░░░░░▀█▄▀▄▀██████░▀█▄▀▄▀██████                                    
+        ░░░gab░░░░░░▀█▄█▄███▀░░░░▀█▄█▄███
+            `);
     });
   })
   .catch(err => {
