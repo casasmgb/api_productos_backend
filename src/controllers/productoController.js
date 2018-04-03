@@ -29,12 +29,15 @@ function guardarProducto(req, res) {
         Producto.find({ nombre: producto.nombre }).exec((err, productoEncontrado) => {
             if (err) return res.status(500).send({ mensaje: 'Error en la peticion de producto' });
             if (productoEncontrado && productoEncontrado.length >= 1) {
+                console.log("###EXISTE### "+ productoEncontrado);
                 return res.status(200).send({ mensaje: 'El producto ya existe cambie de nombre' });
             } else {
                 producto.save((err, productoGuardado) => {
                     if (err) return res.status(500).send({ mensaje: 'Error en la peticion de guardar producto' });
                     if (productoGuardado) {
-                        res.status(201).send({ producto: productoGuardado });
+                        console.log('Producto Registrado');
+                        console.log({ producto: productoGuardado});
+                        return res.status(201).send({ producto: productoGuardado });
                     } else {
                         res.status(404).send({ mensaje: 'no se ha registrado el producto' });
                     }
