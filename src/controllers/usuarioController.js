@@ -5,7 +5,7 @@ var jwt = require('../services/jwt');
 
 function home (req,res){
 	res.status(200).send({
-		message: 'Hola desde el controlador de usuario'
+		mensaje: 'Hola desde el controlador de usuario'
 	});
 }
 
@@ -27,21 +27,21 @@ function crearUsuario(req, res){
             {usuario:nuevoUsuario.usuario.toLowerCase()}
         ]}).exec((err, usuariosRes)=>{
             
-            if(err) return res.status(500).send({message: 'Error en la petición'});
+            if(err) return res.status(500).send({mensaje: 'Error en la petición'});
             
             if(usuariosRes && usuariosRes.length>=1){
-                return res.status(200).send({message:'el usuario ya existe'});
+                return res.status(200).send({mensaje:'el usuario ya existe'});
             }else{
                 //cifrar la clave que esta en params.csublave y guardar los datos
                 bcrypt.hash(params.clave,null, null, (err, claveHash)=>{
                     nuevoUsuario.clave = claveHash;
                     //guardar los datos en MongoDB
                     nuevoUsuario.save((err, usuarioGuardado)=>{
-                        if(err) return res.status(500).send({message:'Error al guardar al nuevo usuario'});
+                        if(err) return res.status(500).send({mensaje:'Error al guardar al nuevo usuario'});
                         if(usuarioGuardado){
-                            res.status(200).send({nuevoUsuario});
+                            res.status(201).send({nuevoUsuario});
                         }else{
-                            res.status(404).send({message: 'no de ha guardado el usuario'});
+                            res.status(404).send({mensaje: 'no de ha guardado el usuario'});
                         }
                     });
                 });
@@ -49,7 +49,7 @@ function crearUsuario(req, res){
         });
         
     }else{
-        res.status(200).send({message:'envie todos los datos...'});
+        res.status(200).send({mensaje:'envie todos los datos...'});
     }
 }
 function loginUsuario(req, res){
@@ -59,12 +59,12 @@ function loginUsuario(req, res){
 
     Usuario.findOne({correo:correo}, (err, usuarioResult)=>{
         
-        if(err) return res.status(500).send({message:'Error en la peticion'});
+        if(err) return res.status(500).send({mensaje:'Error en la peticion'});
         
         if(usuarioResult){
             bcrypt.compare(clave, usuarioResult.clave,(err, verificador)=>{
                 
-                if(err) return res.status(500).send({message:'Error en la peticion de comparacion'});
+                if(err) return res.status(500).send({mensaje:'Error en la peticion de comparacion'});
 
                 if(verificador){
                     if(params.obtenertoken){
@@ -77,11 +77,11 @@ function loginUsuario(req, res){
                         return res.status(200).send(usuarioResult);
                     }
                 }else{
-                    return res.status(404).send({message:'El usuario no de ha podido identificar datos erroneos'});
+                    return res.status(404).send({mensaje:'El usuario no de ha podido identificar datos erroneos'});
                 }
             });
         }else{
-            return res.status(404).send({message:'Problemas al identificar al usuario'});
+            return res.status(404).send({mensaje:'Problemas al identificar al usuario'});
         }
     });
 }
